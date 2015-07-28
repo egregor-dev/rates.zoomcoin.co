@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= title
+  section.endpoint
+    h4.route
+      span.verb GET
+      span.path /rates
+    p.param-desc Retrieves the list of fiat currency exchange rates.
+    .params
+      table.table
+        tbody
+          tr
+            td Example request:
+            td https://rates.zoomcoin.co/rates
+          tr
+            td Example response:
+            td [{"code":"USD","name":"US Dollar","rate":0.4},{"code":"GBP"...]
+
+  section.endpoint
+    h4.route
+      span.verb GET
+      span.path /rates/:currency
+    p.param-desc Retrieves the exchange rate for the given fiat currency code.
+    .params
+      table.table
+        tbody
+          tr
+            td Example request:
+            td https://rates.zoomcoin.co/rates/USD
+          tr
+            td Example response:
+            td [{"code":"USD","name":"US Dollar","rate":0.4}]
+
+
+  h3 Data provided by
+  div
+    a(href='http://cryptonator.com') cryptonator.com
+  div
+    a(href='http://bitpay.com') bitpay.com
