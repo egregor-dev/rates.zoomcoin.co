@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var RateLimit = require('express-rate-limit');
 
 var routes = require('./routes/index');
 var rates = require('./routes/rates');
@@ -20,6 +21,16 @@ app.locals.ENV_DEVELOPMENT = env == 'development';
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.enable('trust proxy');
+var limiter = RateLimit({
+        // window, delay, and max apply per-ip unless global is set to true
+        windowMs: 60 * 1000, // miliseconds - how long to keep records of requests in memory
+        delayMs: 5 * 1000, // milliseconds - base delay applied to the response - multiplied by number of recent hits from user's IP
+        max: 10, // max number of recent connections during `window` miliseconds before (temporarily) bocking the user.
+        global: false, // if true, IP address is ignored and setting is applied equally to all requests
+});
+app.use(limiter);
 
 // app.use(favicon(__dirname + '/public/img/favicon.ico'));
 app.use(logger('dev'));
