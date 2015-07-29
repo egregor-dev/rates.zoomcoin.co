@@ -42,7 +42,7 @@ var findCurrency = function (currency, callback) {
   }
 
   var stringJson = JSON.stringify(json);
-  console.log(stringJson)
+  //console.log(stringJson)
   return callback(null, stringJson);
 };
 
